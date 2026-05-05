@@ -23,6 +23,19 @@
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: -2;
+  }
+
+  /* 🟣 ORB THAT FOLLOWS CURSOR */
+  #orb {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(140,0,255,0.6), rgba(0,0,0,0));
+    pointer-events: none;
+    filter: blur(25px);
+    transform: translate(-50%, -50%);
     z-index: -1;
   }
 
@@ -59,6 +72,7 @@
 <body>
 
 <canvas id="glitchCanvas"></canvas>
+<div id="orb"></div>
 
 <div class="box">
   <h1>Ports Launcher</h1>
@@ -102,6 +116,16 @@ function glitchBackground() {
 glitchBackground();
 
 /* ============================
+   🟣 ORB FOLLOWING CURSOR
+   ============================ */
+const orb = document.getElementById("orb");
+
+document.addEventListener("mousemove", (e) => {
+  orb.style.left = e.clientX + "px";
+  orb.style.top = e.clientY + "px";
+});
+
+/* ============================
    🔥 BUTTON GLITCH EFFECT
    ============================ */
 document.querySelectorAll('.btn').forEach(btn => {
@@ -120,7 +144,6 @@ document.querySelectorAll('.btn').forEach(btn => {
     btn.appendChild(glitch);
 
     setTimeout(() => {
-      glitch.style.top = Math.random() * 20 - 10 + "px";
       glitch.style.left = "200px";
       glitch.style.opacity = "0";
     }, 10);
