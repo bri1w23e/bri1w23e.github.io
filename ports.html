@@ -2,87 +2,93 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MC to Eagler ports</title>
+<title>MC to Eagler Ports</title>
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #0b0e13;
-        font-family: Arial, sans-serif;
-        color: white;
-    }
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0b0e13;
+    font-family: Arial, sans-serif;
+    color: white;
+  }
 
-    .box {
-        width: 320px;
-        padding: 20px;
-        background: #11141c;
-        border-radius: 12px;
-        text-align: center;
-    }
+  .box {
+    width: 320px;
+    padding: 20px;
+    background: #11141c;
+    border-radius: 12px;
+    text-align: center;
+  }
 
-    h1 {
-        margin-bottom: 20px;
-        font-size: 1.4rem;
-    }
+  h1 {
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+  }
 
-    a {
-        display: block;
-        padding: 14px;
-        margin: 10px 0;
-        background: #1a1d26;
-        border-radius: 10px;
-        font-size: 1.05rem;
-        color: white;
-        text-decoration: none;
-        border: 1px solid #222;
-        position: relative;
-        overflow: hidden;
-        transition: 0.25s;
-    }
-
-    /* ⚡ Lightning effect FIXED */
-    a::before {
-        content: "";
-        position: absolute;
-        top: -150%;
-        left: -50%;
-        width: 200%;
-        height: 300%;
-        background: linear-gradient(120deg, transparent, rgba(0,170,255,0.7), transparent);
-        transform: rotate(15deg);
-        opacity: 0;
-        transition: 0.35s ease;
-    }
-
-    a:hover::before {
-        top: -20%;
-        opacity: 1;
-    }
-
-    a:hover {
-        border-color: #00aaff;
-        box-shadow: 0 0 15px rgba(0,170,255,0.4);
-    }
+  .btn {
+    display: block;
+    padding: 14px;
+    margin: 10px 0;
+    background: #181b27;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    color: white;
+    text-decoration: none;
+    border: 1px solid #262938;
+    position: relative;
+    overflow: hidden;
+  }
 </style>
 </head>
 
 <body>
 
 <div class="box">
-    <h1>Ports</h1>
+  <h1>Ports Launcher</h1>
 
-    <a href="https://bri1w23e.github.io/1.12.html" target="_blank" rel="noopener noreferrer">
-        Coming Soon
-    </a>
+  <a class="btn" href="https://bri1w23e.github.io/" target="_blank" rel="noopener noreferrer">
+    Coming Soon
+  </a>
 
-    <a href="https://bri1w23e.github.io/" target="_blank" rel="noopener noreferrer">
-        Back
-    </a>
+  <a class="btn" href="https://bri1w23e.github.io/" target="_blank" rel="noopener noreferrer">
+    Back
+  </a>
 </div>
+
+<script>
+  // Add meteor streak effect to each button
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('mouseenter', () => {
+      const meteor = document.createElement('div');
+      meteor.style.position = 'absolute';
+      meteor.style.top = '-20px';
+      meteor.style.left = '-40px';
+      meteor.style.width = '12px';
+      meteor.style.height = '120%';
+      meteor.style.background = 'linear-gradient(135deg, #00c6ff, #7b2cff)';
+      meteor.style.filter = 'blur(2px)';
+      meteor.style.borderRadius = '999px';
+      meteor.style.transform = 'rotate(20deg)';
+      meteor.style.transition = '0.4s ease';
+      meteor.style.opacity = '0.9';
+
+      btn.appendChild(meteor);
+
+      // animate across the button
+      setTimeout(() => {
+        meteor.style.left = '260px';
+        meteor.style.opacity = '0';
+      }, 10);
+
+      // remove after animation
+      setTimeout(() => meteor.remove(), 450);
+    });
+  });
+</script>
 
 </body>
 </html>
