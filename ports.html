@@ -8,6 +8,7 @@
   body {
     margin: 0;
     height: 100vh;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,12 +17,22 @@
     color: white;
   }
 
+  #glitchCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
   .box {
     width: 320px;
     padding: 20px;
-    background: #11141c;
+    background: rgba(17, 20, 28, 0.85);
     border-radius: 12px;
     text-align: center;
+    backdrop-filter: blur(4px);
   }
 
   h1 {
@@ -47,6 +58,8 @@
 
 <body>
 
+<canvas id="glitchCanvas"></canvas>
+
 <div class="box">
   <h1>Ports Launcher</h1>
 
@@ -60,34 +73,61 @@
 </div>
 
 <script>
-  // Add meteor streak effect to each button
-  document.querySelectorAll('.btn').forEach(btn => {
-    btn.addEventListener('mouseenter', () => {
-      const meteor = document.createElement('div');
-      meteor.style.position = 'absolute';
-      meteor.style.top = '-20px';
-      meteor.style.left = '-40px';
-      meteor.style.width = '12px';
-      meteor.style.height = '120%';
-      meteor.style.background = 'linear-gradient(135deg, #00c6ff, #7b2cff)';
-      meteor.style.filter = 'blur(2px)';
-      meteor.style.borderRadius = '999px';
-      meteor.style.transform = 'rotate(20deg)';
-      meteor.style.transition = '0.4s ease';
-      meteor.style.opacity = '0.9';
+/* ============================
+   🔥 GLITCH BACKGROUND
+   ============================ */
+const canvas = document.getElementById("glitchCanvas");
+const ctx = canvas.getContext("2d");
 
-      btn.appendChild(meteor);
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-      // animate across the button
-      setTimeout(() => {
-        meteor.style.left = '260px';
-        meteor.style.opacity = '0';
-      }, 10);
+function glitchBackground() {
+  ctx.fillStyle = "#0b0e13";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // remove after animation
-      setTimeout(() => meteor.remove(), 450);
-    });
+  for (let i = 0; i < 20; i++) {
+    let w = Math.random() * 300;
+    let h = Math.random() * 6 + 1;
+    let x = Math.random() * canvas.width;
+    let y = Math.random() * canvas.height;
+
+    ctx.fillStyle = `rgba(${150 + Math.random()*105}, 0, 255, ${Math.random()*0.4})`;
+    ctx.fillRect(x, y, w, h);
+  }
+
+  requestAnimationFrame(glitchBackground);
+}
+
+glitchBackground();
+
+/* ============================
+   🔥 BUTTON GLITCH EFFECT
+   ============================ */
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('mouseenter', () => {
+    const glitch = document.createElement('div');
+    glitch.style.position = 'absolute';
+    glitch.style.top = Math.random() * 20 - 10 + "px";
+    glitch.style.left = "-20px";
+    glitch.style.width = "140%";
+    glitch.style.height = "4px";
+    glitch.style.background = "rgba(255,0,255,0.7)";
+    glitch.style.filter = "blur(1px)";
+    glitch.style.opacity = "1";
+    glitch.style.transition = "0.15s linear";
+
+    btn.appendChild(glitch);
+
+    setTimeout(() => {
+      glitch.style.top = Math.random() * 20 - 10 + "px";
+      glitch.style.left = "200px";
+      glitch.style.opacity = "0";
+    }, 10);
+
+    setTimeout(() => glitch.remove(), 200);
   });
+});
 </script>
 
 </body>
