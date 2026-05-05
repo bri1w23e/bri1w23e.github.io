@@ -125,9 +125,9 @@ document.addEventListener("mousemove", (e) => {
 });
 
 /* ============================
-   💥 BUTTON EXPLOSION EFFECT
+   💥 BUTTON EXPLOSION + NAVIGATION
    ============================ */
-function explodeButton(btn) {
+function explodeButton(btn, url) {
   const rect = btn.getBoundingClientRect();
   const particles = 20;
 
@@ -156,15 +156,20 @@ function explodeButton(btn) {
 
     setTimeout(() => p.remove(), 600);
   }
+
+  // ⏳ Wait for explosion to finish, THEN navigate
+  setTimeout(() => {
+    window.location.href = url;
+  }, 350);
 }
 
 document.querySelectorAll(".btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    explodeButton(btn);
+  btn.addEventListener("click", (e) => {
+    e.preventDefault(); // stop instant navigation
+    explodeButton(btn, btn.href); // explode → then go
   });
 });
 </script>
-
 
 </body>
 </html>
